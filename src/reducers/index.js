@@ -1,8 +1,14 @@
 import { combineReducers } from "redux";
-import EntryReducer from "./reducer-entry";
+import { getIncomingEntries, getIncomingTotal } from "./reducer-incoming";
+import { getOutgoingEntries, getOutgoingTotal } from "./reducer-outgoing";
+import RemainingReducer from "./reducer-remaining";
 
 const rootReducer = combineReducers({
-  entry: EntryReducer
+  incomingEntries: getIncomingEntries,
+  incomingTotal: getIncomingTotal,
+  outgoingEntries: getOutgoingEntries,
+  outgoingTotal: getOutgoingTotal,
+  remaining: RemainingReducer
 });
 
 export default rootReducer;

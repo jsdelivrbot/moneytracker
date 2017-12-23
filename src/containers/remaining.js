@@ -1,23 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { calculateRemaining } from '../actions/index';
 
 export default class Remaining extends Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			remaining: ''
-		};
-	}
-
-	showRemaining() {
-		return(
-			<div>This is a <h5>test</h5></div>
-		);
 	}
 
 	render() {
 		return(
-			<h2>{this.state.remaining.length ? `Amount remaining: ${this.state.remaining}` : 'Please enter your incoming/outgoing money.'}</h2>
+			<h2>{this.props.remaining > 0 ? `Amount remaining: ${this.props.remaining}` : 'Please enter your incoming/outgoing money.'}</h2>
 		);
 	}
 }

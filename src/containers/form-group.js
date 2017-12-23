@@ -1,29 +1,22 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from "redux";
-import { addIncomingEntry, addOutgoingEntry } from '../actions/index' ;
 
-class FormGroup extends Component {
+export default class FormGroup extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			entries: [],
 			term: ''
 		};
-
-		this.onInputChange = this.onInputChange.bind(this);
-		this.onFormSubmit = this.onFormSubmit.bind(this);
 	}
 
-	onFormSubmit(e) {
+	onFormSubmit = (e) => {
 		e.preventDefault();
 
-		this.props.addIncomingEntry(this.state.term);
+		this.props.onAdd(this.state.term);
 		this.setState({ term: '' });
 	}
 
-	onInputChange(e) {
+	onInputChange = (e) => {
 		this.setState({ term: e.target.value });
 	}
 
@@ -38,9 +31,10 @@ class FormGroup extends Component {
 			<div>
 				<form onSubmit={this.onFormSubmit} className="form-inline">
 					<div className="form-group">
-						<input type="text" 
+						<input type="number" 
 						value={this.state.term} 
 						onChange={this.onInputChange} 
+						required
 						/>
 					</div>
 					<div className="form-group">
@@ -48,21 +42,10 @@ class FormGroup extends Component {
 					</div>
 				</form>
 				<ul>
-
-					{this.props.entry.map(this.renderEntries)}
-					
-				</ul>				
+					{this.props.items.map(this.renderEntries)}
+				</ul>
+				<p>Total: {this.props.total}</p>
 			</div>
 		);
 	}
 }
-
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ addIncomingEntry, addOutgoingEntry }, dispatch);
-}
-
-function mapStateToProps({ entry }) {
-	return { entry };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(FormGroup);
